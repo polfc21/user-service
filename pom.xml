@@ -20,6 +20,7 @@
 		<hibernate.spatial.version>6.4.0.Final</hibernate.spatial.version>
 		<jacoco.plugin.version>0.8.11</jacoco.plugin.version>
 		<postgis.jdbc.version>2023.1.0</postgis.jdbc.version>
+		<modelmapper.version>3.2.0</modelmapper.version>
 	</properties>
 	<dependencies>
 		<!--Spring Boot dependencies-->
@@ -98,7 +99,12 @@
 			<artifactId>postgis-jdbc</artifactId>
 			<version>${postgis.jdbc.version}</version>
 		</dependency>
-
+		<!--ModelMapper dependencies-->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${modelmapper.version}</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
