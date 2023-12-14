@@ -19,6 +19,7 @@
 		<springdoc.openapi.version>2.3.0</springdoc.openapi.version>
 		<hibernate.spatial.version>6.4.0.Final</hibernate.spatial.version>
 		<jacoco.plugin.version>0.8.11</jacoco.plugin.version>
+		<postgis.jdbc.version>2023.1.0</postgis.jdbc.version>
 	</properties>
 	<dependencies>
 		<!--Spring Boot dependencies-->
@@ -81,6 +82,23 @@
 			<artifactId>hibernate-spatial</artifactId>
 			<version>${hibernate.spatial.version}</version>
 		</dependency>
+		<!--Database dependencies-->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.postgis</groupId>
+			<artifactId>postgis-jdbc</artifactId>
+			<version>${postgis.jdbc.version}</version>
+		</dependency>
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
