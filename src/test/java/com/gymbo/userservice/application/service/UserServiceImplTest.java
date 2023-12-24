@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -21,15 +22,22 @@ class UserServiceImplTest {
     @Mock
     private UserDao userDao;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @Test
     void givenNonExistentUsernameWhenRegisterUserThenSaveUser() {
         User user = mock(User.class);
+        String encryptedPassword = "encryptedPassword";
 
         when(user.getUsername()).thenReturn("username");
         when(this.userDao.findByUsername(user.getUsername())).thenReturn(null);
+        when(user.getPassword()).thenReturn("password");
+        when(this.passwordEncoder.encode(user.getPassword())).thenReturn(encryptedPassword);
         doNothing().when(this.userDao).save(user);
         this.userService.register(user);
 
+        verify(user).setPassword(encryptedPassword);
         verify(this.userDao).save(user);
     }
 
