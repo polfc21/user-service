@@ -5,6 +5,7 @@ import com.gymbo.userservice.domain.exception.ExistingUserException;
 import com.gymbo.userservice.domain.model.User;
 import com.gymbo.userservice.domain.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void register(User user) {
@@ -19,7 +21,14 @@ public class UserServiceImpl implements UserService {
         if (existingUser != null) {
             throw new ExistingUserException("Username already exists");
         }
+        this.encodePassword(user);
         this.userDao.save(user);
+    }
+
+    private void encodePassword(User user) {
+        String password = user.getPassword();
+        String encodedPassword = this.passwordEncoder.encode(password);
+        user.setPassword(encodedPassword);
     }
 
 }
